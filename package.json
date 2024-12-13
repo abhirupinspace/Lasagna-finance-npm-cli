@@ -1,18 +1,24 @@
 {
     "name": "@lasagna-finance/cli",
     "version": "0.1.0",
-    "description": "Lasagna Finance CLI - Solana arbitrage testing tool",
+    "description": "Solana arbitrage CLI tool by Lasagna Finance",
     "main": "dist/index.js",
     "bin": {
-        "lasagna": "./dist/cli.js"
+        "lasagna": "dist/cli.js"
     },
+    "files": [
+        "dist",
+        "README.md"
+    ],
     "scripts": {
-        "build": "tsc",
+        "clean": "rm -rf dist",
+        "prebuild": "npm run clean",
+        "build": "tsc && chmod +x dist/cli.js",
+        "postbuild": "echo '#!/usr/bin/env node' | cat - dist/cli.js > temp && mv temp dist/cli.js",
         "start": "ts-node src/cli.ts",
         "test": "jest",
         "prepare": "npm run build",
-        "validator": "solana-test-validator",
-        "dev": "ts-node-dev --respawn src/cli.ts"
+        "fix-permissions": "sudo chown -R $USER:$USER . && sudo chmod -R u+w ."
     },
     "keywords": [
         "solana",
@@ -29,16 +35,31 @@
         "@solana/web3.js": "^1.95.8",
         "chalk": "^4.1.2",
         "commander": "^12.1.0",
-        "conf": "^13.1.0",
+        "conf": "^10.2.0",
         "dotenv": "^16.4.7",
         "figlet": "^1.8.0",
         "inquirer": "^8.2.6",
         "ora": "^8.1.1",
         "table": "^6.9.0"
     },
+    "publishConfig": {
+        "access": "public"
+    },
     "devDependencies": {
         "@types/figlet": "^1.7.0",
         "@types/inquirer": "^9.0.7",
         "@types/jest": "^29.5.14"
-    }
+    },
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/abhirupinspace/Lasagna-finance-npm-cli.git"
+    },
+    "types": "./dist/index.d.ts",
+    "bugs": {
+        "url": "https://github.com/abhirupinspace/Lasagna-finance-npm-cli/issues"
+    },
+    "homepage": "https://github.com/abhirupinspace/Lasagna-finance-npm-cli#readme"
 }

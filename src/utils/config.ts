@@ -9,7 +9,25 @@ class ConfigManager {
     if (!ConfigManager.instance) {
       ConfigManager.instance = new Conf<ArbitrageConfig>({
         projectName: 'lasagna-finance',
-        defaults: DEFAULT_CONFIG
+        defaults: DEFAULT_CONFIG,
+        schema: {
+          network: {
+            type: 'string',
+            default: 'localnet'
+          },
+          rpcUrl: {
+            type: 'string',
+            default: ''
+          },
+          walletPath: {
+            type: 'string',
+            default: ''
+          },
+          minProfitThreshold: {
+            type: 'number',
+            default: 0.5
+          }
+        }
       });
     }
     return ConfigManager.instance;
@@ -30,5 +48,4 @@ class ConfigManager {
 }
 
 export const Config = ConfigManager;
-
 
